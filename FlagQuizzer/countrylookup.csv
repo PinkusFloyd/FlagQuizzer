@@ -1,6 +1,6 @@
 Country,Code,Hide
 Afghanistan,AF,FALSE
-Åland Islands,AX,FALSE
+Aland Islands,AX,FALSE
 Albania,AL,FALSE
 Algeria,DZ,FALSE
 American Samoa,AS,FALSE
@@ -25,7 +25,7 @@ Belize,BZ,FALSE
 Benin,BJ,FALSE
 Bermuda,BM,FALSE
 Bhutan,BT,FALSE
-Bolivia; Plurinational State of,BO,FALSE
+Bolivia,BO,FALSE
 Bonaire; Sint Eustatius and Saba,BQ,FALSE
 Bosnia and Herzegovina,BA,FALSE
 Botswana,BW,FALSE
@@ -50,13 +50,13 @@ Cocos (Keeling) Islands,CC,FALSE
 Colombia,CO,FALSE
 Comoros,KM,FALSE
 Congo,CG,FALSE
-Congo; Democratic Republic of the,CD,FALSE
+Democratic Republic of the Congo,CD,FALSE
 Cook Islands,CK,FALSE
 Costa Rica,CR,FALSE
 Cote d'Ivoire,CI,FALSE
 Croatia,HR,FALSE
 Cuba,CU,FALSE
-Curaçao,CW,FALSE
+Curacao,CW,FALSE
 Cyprus,CY,FALSE
 Czechia,CZ,FALSE
 Denmark,DK,FALSE
@@ -71,7 +71,7 @@ Eritrea,ER,FALSE
 Estonia,EE,FALSE
 Eswatini,SZ,FALSE
 Ethiopia,ET,FALSE
-Falkland Islands (Malvinas),FK,FALSE
+Falkland Islands,FK,FALSE
 Faroe Islands,FO,FALSE
 Fiji,FJ,FALSE
 Finland,FI,FALSE
@@ -104,7 +104,7 @@ Hungary,HU,FALSE
 Iceland,IS,FALSE
 India,IN,FALSE
 Indonesia,ID,FALSE
-Iran; Islamic Republic of,IR,FALSE
+Iran,IR,FALSE
 Iraq,IQ,FALSE
 Ireland,IE,FALSE
 Isle of Man,IM,FALSE
@@ -117,11 +117,11 @@ Jordan,JO,FALSE
 Kazakhstan,KZ,FALSE
 Kenya,KE,FALSE
 Kiribati,KI,FALSE
-Korea; Democratic People's Republic of,KP,FALSE
-Korea; Republic of,KR,FALSE
+North Korea,KP,FALSE
+South Korea,KR,FALSE
 Kuwait,KW,FALSE
 Kyrgyzstan,KG,FALSE
-Lao People's Democratic Republic,LA,FALSE
+Laos,LA,FALSE
 Latvia,LV,FALSE
 Lebanon,LB,FALSE
 Lesotho,LS,FALSE
@@ -143,8 +143,8 @@ Mauritania,MR,FALSE
 Mauritius,MU,FALSE
 Mayotte,YT,FALSE
 Mexico,MX,FALSE
-Micronesia; Federated States of,FM,FALSE
-Moldova; Republic of,MD,FALSE
+Micronesia,FM,FALSE
+Moldova,MD,FALSE
 Monaco,MC,FALSE
 Mongolia,MN,FALSE
 Montenegro,ME,FALSE
@@ -155,7 +155,7 @@ Myanmar,MM,FALSE
 Namibia,NAM,FALSE
 Nauru,NR,FALSE
 Nepal,NP,FALSE
-Netherlands; Kingdom of the,NL,FALSE
+Netherlands,NL,FALSE
 New Caledonia,NC,FALSE
 New Zealand,NZ,FALSE
 Nicaragua,NI,FALSE
@@ -169,7 +169,7 @@ Norway,NO,FALSE
 Oman,OM,FALSE
 Pakistan,PK,FALSE
 Palau,PW,FALSE
-Palestine; State of,PS,FALSE
+Palestine,PS,FALSE
 Panama,PA,FALSE
 Papua New Guinea,PG,FALSE
 Paraguay,PY,FALSE
@@ -180,11 +180,11 @@ Poland,PL,FALSE
 Portugal,PT,FALSE
 Puerto Rico,PR,FALSE
 Qatar,QA,FALSE
-Réunion,RE,FALSE
+Reunion,RE,FALSE
 Romania,RO,FALSE
 Russian Federation,RU,FALSE
 Rwanda,RW,FALSE
-Saint Barthélemy,BL,FALSE
+Saint Bartholemy,BL,FALSE
 Saint Helena; Ascension and Tristan da Cunha,SH,FALSE
 Saint Kitts and Nevis,KN,FALSE
 Saint Lucia,LC,FALSE
@@ -200,7 +200,7 @@ Serbia,RS,FALSE
 Seychelles,SC,FALSE
 Sierra Leone,SL,FALSE
 Singapore,SG,FALSE
-Sint Maarten (Dutch part),SX,FALSE
+Sint Maarten,SX,FALSE
 Slovakia,SK,FALSE
 Slovenia,SI,FALSE
 Solomon Islands,SB,FALSE
@@ -215,10 +215,10 @@ Suriname,SR,FALSE
 Svalbard and Jan Mayen,SJ,FALSE
 Sweden,SE,FALSE
 Switzerland,CH,FALSE
-Syrian Arab Republic,SY,FALSE
-Taiwan; Province of China,TW,FALSE
+Syria,SY,FALSE
+Taiwan,TW,FALSE
 Tajikistan,TJ,FALSE
-Tanzania; United Republic of,TZ,FALSE
+Tanzania,TZ,FALSE
 Thailand,TH,FALSE
 Timor-Leste,TL,FALSE
 Togo,TG,FALSE
@@ -226,21 +226,21 @@ Tokelau,TK,FALSE
 Tonga,TO,FALSE
 Trinidad and Tobago,TT,FALSE
 Tunisia,TN,FALSE
-Türkiye,TR,FALSE
+Turkiye,TR,FALSE
 Turkmenistan,TM,FALSE
 Turks and Caicos Islands,TC,FALSE
 Tuvalu,TV,FALSE
 Uganda,UG,FALSE
 Ukraine,UA,FALSE
 United Arab Emirates,AE,FALSE
-United Kingdom of Great Britain and Northern Ireland,GB,FALSE
+United Kingdom,GB,FALSE
 United States of America,US,FALSE
 United States Minor Outlying Islands,UM,FALSE
 Uruguay,UY,FALSE
 Uzbekistan,UZ,FALSE
 Vanuatu,VU,FALSE
-Venezuela; Bolivarian Republic of,VE,FALSE
-Viet Nam,VN,FALSE
+Venezuela,VE,FALSE
+Vietnam,VN,FALSE
 Virgin Islands (British),VG,FALSE
 Virgin Islands (U.S.),VI,FALSE
 Wallis and Futuna,WF,FALSE
