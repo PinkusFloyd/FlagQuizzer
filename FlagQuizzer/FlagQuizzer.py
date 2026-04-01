@@ -6,7 +6,9 @@ from nicegui import app, ui, native
 from PIL import Image
 import os, sys
 import nicegui
+import multiprocessing
 
+multiprocessing.freeze_support()
 
 def resource_path(relative_path):
     try:
@@ -18,17 +20,13 @@ def resource_path(relative_path):
 
 lookup_df = pd.read_csv(resource_path('countrylookup.csv'), encoding='latin1')
 
+separator = "/" if os.name != 'nt' else "\\"
+
 images = {}
 for i, image_file in enumerate(glob.glob(resource_path('Flags/*.png'))):
-    country_code = image_file.split("\\")[-1].split(".")[0].upper()
+    country_code = image_file.split(separator)[-1].split(".")[0].upper()
     country_name = lookup_df[lookup_df['Code'] == country_code]['Country'].iloc[0]
     images[i] = {'name': country_name, 'file': image_file}
-
-# flag_folder = resource_path('./Flags/')
-# count = len([p for p in Path(flag_folder).iterdir() if p.is_file()])
-# flag_pics = glob.glob(flag_folder + '*.png')
-
-
 
 
 
@@ -65,7 +63,6 @@ class GUI():
             
             
         self.answer_label.visible = False
-        # self.answer_label.text = lookup_df[lookup_df['Code'] == chosen_flag.split('\\')[1].split('.')[0]]['Country'].iloc[0]
         self.answer_label.text = chosen_flag['name']
         self.flag_image.props(f'width={width}px height={height}px')
         self.flag_image.force_reload
@@ -75,6 +72,7 @@ class GUI():
 def main_page():
     GUI()
 
-ui.run(reload=False, root=main_page, port = native.find_open_port())
+if __name__ == '__main__':
+    ui.run(reload=False, root=main_page, port = native.find_open_port())
 
 
