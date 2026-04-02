@@ -46,10 +46,10 @@ class GUI():
         ui.page_title('Flag Quizzer')
         
         self.input_box = ui.input(label='Answer').on('keydown.enter', self.check_answer)
-        
+
+        ui.keyboard(on_key = lambda e: self.get_flag_image() if (e.key == "ArrowRight" and e.action.keydown) else None)
         
         with ui.row().classes('items-center gap-4'):
-            ui.button('Show answer', on_click=lambda: self.true_visibility())
             ui.button('Next flag ->', on_click=lambda:self.get_flag_image())
         
         self.ignore_button = ui.button('Ignore this flag forever', color = 'red', on_click=lambda: self.ignore_flag())
@@ -73,6 +73,8 @@ class GUI():
 
     def check_answer(self):
         answer = self.input_box.value
+        self.input_box.enabled = False
+
         if answer.lower() == self.image_info['name'].lower():
             self.answer_label.text = 'Correct!'
             self.answer_label.props('color = green')
@@ -106,7 +108,10 @@ class GUI():
         self.flag_image.props(f'width={width}px height={height}px')
         self.flag_image.force_reload
 
+        self.input_box.enabled = True
         self.input_box.value = ''
+        self.input_box.run_method('focus')
+
 
 
 @ui.page('/')
