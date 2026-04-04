@@ -129,6 +129,6 @@ def main_page():
     GUI()
 
 if __name__ == '__main__':
-    ui.run(reload=False, root=main_page, port = 8080)
+    ui.run(reload=False, root=main_page, port = 8080, host="127.0.0.1")
 
 
