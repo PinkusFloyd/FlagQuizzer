@@ -1,12 +1,12 @@
 from pathlib import Path
-from random import randint
+from random import choice
 import pandas as pd
 import glob
 from nicegui import app, ui, native, events
 from PIL import Image
 import os, sys
 import multiprocessing
-
+from thefuzz import fuzz
 multiprocessing.freeze_support()
 
 def resource_path(relative_path):
@@ -17,20 +17,22 @@ def resource_path(relative_path):
 
     return os.path.join(base_path, relative_path)
 
-lookup_df = pd.read_csv(resource_path('countrylookup.csv'), encoding='latin1')
 
-separator = "/" if os.name != 'nt' else "\\"
+def get_images():
+    lookup_df = pd.read_csv(resource_path('countrylookup.csv'), encoding='latin1')
 
-images = {}
+    separator = "/" if os.name != 'nt' else "\\"
 
-all_images = glob.glob(resource_path('Flags/*.png'))
-all_images = [img for img in all_images if img.split(separator)[-1].split(".")[0].upper() not in open('ignored_codes.csv').read().splitlines()]
+    images = {}
 
-for i, image_file in enumerate(all_images):
-    country_code = image_file.split(separator)[-1].split(".")[0].upper()
-    country_name = lookup_df[lookup_df['Code'] == country_code]['Country'].iloc[0]
-    images[i] = {'name': country_name, 'code': country_code, 'file': image_file}
+    all_images = glob.glob(resource_path('Flags/*.png'))
+    all_images = [img for img in all_images if img.split(separator)[-1].split(".")[0].upper() not in open('ignored_codes.csv').read().splitlines()]
 
+    for i, image_file in enumerate(all_images):
+        country_code = image_file.split(separator)[-1].split(".")[0].upper()
+        country_name = lookup_df[lookup_df['Code'] == country_code]['Country'].iloc[0]
+        images[i] = {'name': country_name, 'code': country_code, 'file': image_file}
+    return images
 
 
 #-------------------UI--------------------#
@@ -41,6 +43,7 @@ class GUI():
         self.answer_label = ui.label(f'').classes('text-2xl text-green-500')
         self.answer_label.visible = False
         self.image_info = dict()
+        self.image_dict = get_images()
         
         ui.dark_mode(True)
         ui.page_title('Flag Quizzer')
@@ -75,7 +78,7 @@ class GUI():
         answer = self.input_box.value
         self.input_box.enabled = False
 
-        if answer.lower() == self.image_info['name'].lower():
+        if fuzz.token_sort_ratio(answer.lower(), self.image_info['name'].lower()) > 80:
             self.answer_label.text = 'Correct!'
             self.answer_label.props('color = green')
             self.score_tracker_numerator += 1
@@ -91,8 +94,15 @@ class GUI():
 
     @ui.refreshable
     def get_flag_image(self):
-        random_flag = randint(0, len(images)-1)
-        self.image_info = images[random_flag]
+        if len(self.image_dict) == 0:
+            self.answer_label.text = 'No more flags to show! Please restart the app to play again.'
+            self.answer_label.visible = True
+            self.input_box.enabled = False
+            self.ignore_button.enabled = False
+            return
+
+        random_flag = choice(list(self.image_dict.keys()))
+        self.image_info = self.image_dict.pop(random_flag)
 
         image_divider = 5
 
