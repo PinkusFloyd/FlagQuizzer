@@ -128,6 +128,6 @@ def main_page():
 app.add_static_files('/flags', resource_path('Flags'))
 
 if __name__ == '__main__':
-    ui.run(reload=False, port=8080, host='0.0.0.0')
+    ui.run(reload=False, port=8080, host='0.0.0.0', forwarded_allow_ips='*')
 
 
