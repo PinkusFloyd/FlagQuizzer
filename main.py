@@ -1,37 +1,33 @@
-from pathlib import Path
 from random import choice
-import pandas as pd
+import csv
 import glob
-from nicegui import app, ui, native, events
+from nicegui import app, ui, events
 from PIL import Image
 import os, sys
-import multiprocessing
 from thefuzz import fuzz
-multiprocessing.freeze_support()
 
 def resource_path(relative_path):
     try:
         base_path = sys._MEIPASS
     except Exception:
         base_path = os.path.abspath(".")
-
     return os.path.join(base_path, relative_path)
 
 
 def get_images():
-    lookup_df = pd.read_csv(resource_path('countrylookup.csv'), encoding='latin1')
+    # Read CSV with stdlib — no pandas/numpy overhead
+    with open(resource_path('countrylookup.csv'), encoding='latin1') as f:
+        lookup = {row['Code']: row['Country'] for row in csv.DictReader(f)}
 
+    ignored = set(open('ignored_codes.csv').read().splitlines())
     separator = "/" if os.name != 'nt' else "\\"
 
     images = {}
-
-    all_images = glob.glob(resource_path('Flags/*.png'))
-    all_images = [img for img in all_images if img.split(separator)[-1].split(".")[0].upper() not in open('ignored_codes.csv').read().splitlines()]
-
-    for i, image_file in enumerate(all_images):
-        country_code = image_file.split(separator)[-1].split(".")[0].upper()
-        country_name = lookup_df[lookup_df['Code'] == country_code]['Country'].iloc[0]
-        images[i] = {'name': country_name, 'code': country_code, 'file': image_file}
+    for i, image_file in enumerate(glob.glob(resource_path('Flags/*.png'))):
+        code = image_file.split(separator)[-1].split(".")[0].upper()
+        if code in ignored or code not in lookup:
+            continue
+        images[i] = {'name': lookup[code], 'code': code, 'file': image_file}
     return images
 
 
@@ -104,19 +100,19 @@ class GUI():
         random_flag = choice(list(self.image_dict.keys()))
         self.image_info = self.image_dict.pop(random_flag)
 
+        # Get dimensions without keeping the image decoded in memory
         image_divider = 5
-
         with Image.open(self.image_info['file']) as img:
-            width, height = img.size
-            width = round(width/image_divider)
-            height = round(height/image_divider)
-            self.flag_image.set_source(img)
-            
-        
+            width  = round(img.width  / image_divider)
+            height = round(img.height / image_divider)
+
+        # Serve as a static URL — avoids base64-encoding the image in Python memory
+        flag_url = f'/flags/{self.image_info["code"].lower()}.png'
+        self.flag_image.set_source(flag_url)
+        self.flag_image.props(f'width={width}px height={height}px')
+
         self.answer_label.visible = False
         self.answer_label.text = self.image_info['name']
-        self.flag_image.props(f'width={width}px height={height}px')
-        self.flag_image.force_reload
 
         self.input_box.enabled = True
         self.input_box.value = ''
@@ -128,7 +124,10 @@ class GUI():
 def main_page():
     GUI()
 
+# Serve flag images as static files — browser fetches them directly, no Python memory used
+app.add_static_files('/flags', resource_path('Flags'))
+
 if __name__ == '__main__':
-    ui.run(reload=False, root=main_page, port = 8080, host="127.0.0.1")
+    ui.run(reload=False, port=8080, host='0.0.0.0')
 
 
